@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.div1 {
+    background-color: #ff4c4c;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.div2 {
+    background-color: aqua;
+    padding: 30px;
+    margin: 0 auto;
+    max-width: 600px;
+    border-radius: 8px;
+    
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.svg1{
+    height: 30px;
+    width: 30px;
+    margin-left: 7px;
+}
+.div27{
+    display: flex;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+button {
+    background-color: #ff4c4c;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+}
+
+#btn25{
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #e04343;
+}
+
+.div3,
+.div4,
+.div5,
+.div6 {
+    margin-bottom: 20px;
+}
+.div7{
+    text-align: center;
+    background-color: #e8ebe9;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: auto;
+}
+/* Media Queries for different screen sizes */
+@media (max-width: 768px) {
+    .div1 {
+        padding: 15px;
+    }
+
+    .div2 {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
+
+/* For very small screens like phones in portrait mode */
+@media (max-width: 480px) {
+    .div2 {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea {
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+        </style>
+        <style>
+            #qrcode{
+                margin-top: 20px;
+                margin-left: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="div1">
+            <h1></h1>
+        </div>
+        <hr>
+        <div class="div2">
+        <form id="upiForm">
+            <label for="upiId">UPI ID:</label>
+            <input type="text" id="upiId" placeholder="example@upi" required>
+            
+            <label for="amount">Amount (Optional):</label>
+            <input type="number" id="amount" step="0.01" placeholder="Enter amount">
+        
+            <button type="submit">Generate UPI QR Code</button>
+        </form>
+        </div>
+        <div id="qrcode"></div>
+
+
+    </body>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js' integrity='sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA==' crossorigin='anonymous'></script>
+    <script>
+        document.getElementById("upiForm").addEventListener("submit", function(e) {
+    e.preventDefault();  
+
+    
+    const upiId = document.getElementById("upiId").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+    // const data3 = document.getElementById("password").value;
+    // const data4 = document.getElementById("message").value;
+
+    
+    let upiURL = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=Merchant&cu=INR`; 
+
+    if (amount) {
+        upiURL += `&am=${encodeURIComponent(amount)}`;
+    }
+
+    
+    document.getElementById('qrcode').innerHTML = '';
+
+    
+    new QRCode(document.getElementById("qrcode"), {
+        text: upiURL,
+        width: 128,
+        height: 128
+    });
+});
+
+    </script>
+</html>
